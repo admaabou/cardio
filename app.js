@@ -88,6 +88,10 @@ app.post('/api/connard' , (req, res)=>{
   console.log(req.body)
   res.json({ret:'ooooooooooo', feedback:'ooooooo'})
 })
+app.post('/api' , (req, res)=>{
+  console.log(req.body)
+  res.send("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+})
 //---------------- error  404 
 app.use ( (req,res, next) => {		 
 		   res.status(404).json("impossible d'acceder a la ressource demandee")
