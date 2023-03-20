@@ -1,0 +1,168 @@
+<!DOCTYPE html> 
+
+<html >
+  <head> 
+    <meta charset="utf-8"> 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 
+    <title></title> 
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+ 
+   <style type="text/css" media="screen"> 
+
+    
+  </style>  
+</head>
+ <body> 
+ <div   id="app" >
+    <h1><center>Test Node.js rest api</center></h1><br/>
+	<center>give id and click  read to read  record </center>
+	<center>agter reading modify fields except id and  click modify </center>
+	<center>type all fields except id and  click ajoyter to add new recordd </center>
+	<br/><hr/>
+	{{ mes }}
+	<table   border="1"> 
+	 <tr>
+	    <td>id</td> )
+					<td>name</td>
+					<td>v1</td>
+					<td>v2</td>
+					 
+	 </tr>
+	  <tr   v-for="     (e,index )  in reponse">
+         			 
+					<td>{{  e.uid }}</td>
+					<td>{{  e.value1 }}</td>
+					<td>{{  e.value2 }}</td>
+					 
+				 
+         		 
+         		</tr>
+	
+	</table>
+    <div class="container-fluid">
+	                <form id="myform">
+	id : <input type ="text"  name="name" size="10"  id="name"/> <br/>
+    value1 : <input type ="text"  name="value1" size="20"  id="value1"/> <br/>
+	value2 : <input type ="text"  name="value2" size="20"  id="value2"/> <br/>
+	<button  @click="ajouter" >ajouter</button>
+	<button  @click="read" >lecture</button>
+	<button  @click="modifier" >modifier</button>
+  </form> 
+	
+	</div>
+         
+ </div>
+<!--           SCRIPT -->
+ 
+   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> 
+    <script>  
+       var vm =   new Vue({
+      	el: "#app" , 
+      	data : { hello: "teste  VUE  JS WORKING ....",
+          other: {xyz: 123 , zfg: "tttttttt0000000"},  
+          htmlcontent: 
+         " <div  class='text-danger'><h2>h2222222222222222</h2></div>",
+          imgurl: "../img/cancer.png" ,
+          textprimary: "text-primary" ,
+          backg: "yellow" ,
+		  reponse: [],
+		  mes : "oooooooooooooooooooooooooooooooo" ,
+          colortx : "red" ,
+           } ,  //  end of data
+           computed : {   
+                    greating() { return   "please note that " + this.other.zfg },
+                     now() { return   Date().toLocaleString()  } ,
+                       double() { return    this.other.xyz * 2 }
+             } , //  end of computed
+            
+          methods : {
+          	changeHello() { this.hello ="im now  this " ;this.other.xyz= 100;},
+          	changestyle() { this.backg = "red" ;this.colortx ="white";          	 },
+			ajouter(e)   {  e.preventDefault();
+                    var  fr = $("#myform")[0];			 
+				 
+                    alert(new FormData($('#form1')[0])) ;
+                    var myForm = document.getElementById('myform');
+    				 var d = new FormData(myForm);                
+                    alert( JSON.stringify(d) ) ;
+                    alert(  d.get("name" ) );
+					//
+					const array = $("#myform").serializeArray(); // Encodes the set of form elements as an array of names and values.
+                    const json = {};
+                    $.each(array, function () {
+                           json[this.name] = this.value || "";
+                             });
+						alert( JSON.stringify(json) ) ;
+					//
+					const hsons = JSON.stringify(json) ;
+					const dt = ' {  "name": "iiiiiiii" , "cp": "45"        }'  ;
+                  var jqxhr = $.post( "http://127.0.0.1:3000/api/mesure", json,function(data) {
+ 							 alert( "success" );
+							 alert (JSON.stringify(data) ) ;
+							 
+						}, "json").done(function() {
+   							 alert( "second success" );
+							  }).fail(function() {
+  							  alert( "error" );
+  		 								 }).always(function() {
+  					  alert( "finished" );
+  						});
+
+                      alert( jqxhr.statusText);
+                  } ,
+		    vstart(e) {
+			   alert("ooooooooooooo");
+			     $.ajax
+({
+  type: "GET",
+  url: "http://localhost:3000/api/mesures",
+  dataType: 'json',
+  headers: {
+  //---- use  http://localhost:3000/api/login?username=moi&password=moi to get token
+    "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImlhdCI6MTY3NDU2NzY5NSwiZXhwIjoxNjc0NjU0MDk1fQ.f-wuxX29afoocWCoVHgdbfL_GNYqhfVkg8QN6quD0KA" 
+  },
+  
+  success: function (data){
+  alert(  JSON.stringify(data)) ;
+  vm.reponse = data.data;
+ vm.mes = (data.message) ;
+ alert(vm.mes) ;
+  // (data.data).forEach ( e => {
+     // alert(e);
+	 // alert(      e.name );
+  // }) ;
+    alert('Thanks for your comment!'); 
+  }
+});
+			 },
+			read(e) {  
+			     var myForm = document.getElementById('myform');
+    				 var d = new FormData(myForm);   
+					 const id = d.get("id");
+					 alert(id);
+			     $.get( "http://127.0.0.1:3000/api/pokemon/"+id,
+					 (data, status, xhr) => {
+					 alert(status) ;
+					 alert(data);
+					   // document.getElementById("name").value= data;
+					   },					 
+					  "json"
+				   );
+			
+			},
+			modifier (e) { 
+			
+			}	
+				  
+          }   //  eof methods  
+      }) 
+	  alert("ok");
+  	 vm.vstart() ;
+  </script>
+ </body>  
+</html>
