@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const MesuresnModel = require('../models/Mesures')
 const UserModel = require('../models/User') 
- const  bcrypt  = require("bcrypt")
+ const  bcrypt  = require("bcryptjs")
  /*
  const sequelize = new Sequelize('Mydb', 'root', '', {
   host: '127.0.0.1',

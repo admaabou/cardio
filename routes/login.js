@@ -1,5 +1,5 @@
 const { Userm  }= require("../src/db/sequelize")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const {Op}  = require("sequelize")
 console.log("login.js----------------")
  const  jwt = require("jsonwebtoken")
