@@ -88,7 +88,7 @@ app.post('/api/connard' , (req, res)=>{
   console.log(req.body)
   res.json({ret:'ooooooooooo', feedback:'ooooooo'})
 })
-app.get('/api' , (req, res)=>{
+app.get('/' , (req, res)=>{
   console.log(req.body)
   res.send("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
 })
