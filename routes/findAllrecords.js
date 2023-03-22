@@ -25,10 +25,10 @@ module.exports = (app) => {
 		//  console.log("findall alllllllllllllllllll " , x)
      if (req.query.name) {			    
 			  const name = req.query.name
-		const sql= `select * from  Mesures JOIN  users  on Users.id=Mesures.uid where  username='${name}'  `
+		const sql= `select * from  Mesures JOIN  Users  on Users.id=Mesures.uid where  username='${name}'  `
 		//console.log("sql =" , sql )	
 		//  Mesuresnm.findAll({where:{ name : name}})   // strict search
-		 sequelize.query(`select Mesures.* from  Mesures JOIN users on Users.id=Mesures.uid   where  username='${name}'  `)
+		 sequelize.query(`select Mesures.* from  Mesures JOIN Users on Users.id=Mesures.uid   where  username='${name}'  `)
 			 //---  find using  wild char
 			 // Pokemonm.findAll({ limit: x,where:{ name : { [Op.like]: `%${req.query.name}%`	  }} 	  })
 			  .then( ms  =>{

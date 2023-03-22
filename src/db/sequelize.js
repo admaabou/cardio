@@ -1,9 +1,12 @@
+console.log("process env ENV_MODE  sequelize ",process.env.ENV_MODE )
 const { Sequelize, DataTypes } = require('sequelize')
 const MesuresnModel = require('../models/Mesures')
 const UserModel = require('../models/User') 
  const  bcrypt  = require("bcryptjs")
- /*
- const sequelize = new Sequelize('Mydb', 'root', '', {
+ const local = true
+ var sequelize
+ if (process.env.ENV_MODE === 'local') {
+   sequelize = new Sequelize('Mydb', 'root', '', {
   host: '127.0.0.1',
   dialect: 'mariadb',   // driver
 port: '3307', //-------------> mariadb is using  3307
@@ -12,17 +15,19 @@ port: '3307', //-------------> mariadb is using  3307
     timezone: 'Etc/GMT-2',
   },
   logging: false
-}) */
-const sequelize = new Sequelize('railway', 'root', 'Ar1vbhrDRY32G81e6lIo', {
-  host: 'containers-us-west-202.railway.app',
-  dialect: 'mariadb',   // driver
-port: '7026', //-------------> mariadb is using  3307
+})  
+  } else  {
+    sequelize = new Sequelize('railway', 'root', 'Ar1vbhrDRY32G81e6lIo', {
+     host: 'containers-us-west-202.railway.app',
+       dialect: 'mariadb',   // driver
+      port: '7026', //-------------> mariadb is using  3307
 
-  dialectOptions: {
+      dialectOptions: {
     timezone: 'Etc/GMT-2',
-  },
-  logging: false
-})
+    },
+       logging: false
+     })
+ }
 //==================railway
 //mysql://root:R42JN4ivoj0gemaPS44g@containers-us-west-190.railway.app:7021/railway
 //mysql://root:Ar1vbhrDRY32G81e6lIo@containers-us-west-202.railway.app:7026/railway

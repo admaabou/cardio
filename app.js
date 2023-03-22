@@ -3,14 +3,21 @@
 //  use   ORM  sequelize  with  mariadb
 //  the  mysql  server  / mariadb server  must be active   or launch   wamp 
 //------------------
+
+const dotenv =  require("dotenv")
+//     load  env  variables  --
+dotenv.config ({path : "./config/config.env"} )
+//--------------
 const express = require("express")
- 
+  
 //const helper = require("./helper.js")
 const bodyParser = require("body-parser")
 const sequelize = require("./src/db/sequelize") 
  
 const login = require("./routes/login.js")
 const wregister = require("./routes/register.js")
+
+console.log("env.................", process.env.ENV_MODE)
 //-----------list exports of sequelize
 //console.dir(Object.keys(require('sequelize')));
  const cors = require("cors")
@@ -93,7 +100,8 @@ app.get('/' , (req, res)=>{
   res.send("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
 })
 //---------------- error  404 
-app.use ( (req,res, next) => {		 
+app.use ( (req,res, next) => {	
+  console.log(req)	 
 		   res.status(404).json("impossible d'acceder a la ressource demandee")
 })
 //---
